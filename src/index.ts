@@ -5,6 +5,7 @@ import express from 'express';
 import helmet from 'helmet';
 
 import { restApiConfig } from 'common/config/rest-api.config';
+import { pathLoggerMiddleware } from 'common/middlewares/path-logger.middleware';
 
 function bootstrap() {
   const { port } = restApiConfig();
@@ -14,6 +15,8 @@ function bootstrap() {
   restApi.use(cors()); // Enable CORS
   restApi.use(express.json()); // Enable JSON body parsing
   restApi.use(helmet()); // Enable security headers
+
+  restApi.use(pathLoggerMiddleware);
 
   restApi.listen(port, () => {
     console.log(`REST API is running at http://localhost:${port}`);
