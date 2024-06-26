@@ -43,13 +43,13 @@
   - [x] Read by id
   - [x] Read list
     - [x] Allow filtering by `color` and `brand`
-- [ ] Develop `driver` module
-  - [ ] Create
-  - [ ] Update
-  - [ ] Delete
-  - [ ] Read by id
-  - [ ] Read list
-    - [ ] Allow filtering by `name`
+- [x] Develop `driver` module
+  - [x] Create
+  - [x] Update
+  - [x] Delete
+  - [x] Read by id
+  - [x] Read list
+    - [x] Allow filtering by `name`
 - [ ] Develop relationship between `automobile` and `driver`
   - [ ] Start
     - [ ] A `driver` can use only one `automibile` at the same time  
