@@ -16,6 +16,18 @@ export class AutomobileService {
     return this.automobileRepository.create(data);
   }
 
+  public async readById(id: string): Promise<AutomobileEntity> {
+    const automobile = await this.automobileRepository.find({
+      data: { id },
+    });
+
+    if (!automobile) {
+      throw new AutomobileNotFoundError(id);
+    }
+
+    return automobile;
+  }
+
   public async readList(
     data: Partial<AutomobileEntity>,
   ): Promise<AutomobileEntity[]> {

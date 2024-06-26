@@ -40,7 +40,7 @@
   - [x] Create
   - [x] Update
   - [ ] Delete
-  - [ ] Read by id
+  - [x] Read by id
   - [x] Read list
     - [x] Allow filtering by `color` and `brand`
 - [ ] Develop `driver` module

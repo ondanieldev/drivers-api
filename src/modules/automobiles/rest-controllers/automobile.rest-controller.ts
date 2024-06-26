@@ -17,6 +17,11 @@ export class AutomobileRestController {
     return res.status(StatusCode.CREATED).json(result);
   }
 
+  public async readById(req: Request, res: Response): Promise<Response> {
+    const result = await this.automobileService.readById(req.params.id);
+    return res.status(StatusCode.OK).json(result);
+  }
+
   public async readList(req: Request, res: Response): Promise<Response> {
     const result = await this.automobileService.readList(req.query);
     return res.status(StatusCode.OK).json(result);

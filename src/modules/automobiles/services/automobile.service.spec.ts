@@ -144,4 +144,24 @@ describe('AutomobileService', () => {
     expect(automobileList.length).toBe(1);
     expect(automobileList[0].color).toBe('white');
   });
+
+  it('should read automobile by id', async () => {
+    // Arrange
+    const createData: CreateAutomobileBo = {
+      brand: 'Toyota',
+      color: 'black',
+      licensePlate: 'ABC-1234',
+    };
+
+    const createdAutomobile = await automobileService.create(createData);
+
+    // Act
+    const readAutomobile = await automobileService.readById(
+      createdAutomobile.id,
+    );
+
+    // Assert
+    expect(readAutomobile).toBeDefined();
+    expect(readAutomobile.id).toBe(createdAutomobile.id);
+  });
 });

@@ -28,6 +28,13 @@ export class AutomobileRestRouter implements RestRouter {
     );
 
     router.get(
+      '/automobile/:id',
+      this.automobileRestController.readById.bind(
+        this.automobileRestController,
+      ),
+    );
+
+    router.get(
       '/automobile',
       validatorMiddleware('query', ReadAutomobileListDto),
       this.automobileRestController.readList.bind(
