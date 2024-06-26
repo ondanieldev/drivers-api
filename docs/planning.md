@@ -27,9 +27,9 @@
   - [x] Setup `helmet`
   - [x] Create server entrypoint
   - [ ] Create routes entrypoint
-  - [ ] Create base middlewares
-    - [ ] Endpoint logger
-    - [ ] Error handler
+  - [x] Create base middlewares
+    - [x] Endpoint logger
+    - [x] Error handler
 - [ ] Setup `class-validator` and `class-transformer` to enhance DTOs
 - [ ] Setup tsyringe for dependency injection
 
