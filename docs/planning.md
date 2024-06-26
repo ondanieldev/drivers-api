@@ -39,7 +39,7 @@
 - [x] Develop `automobile` module
   - [x] Create
   - [x] Update
-  - [ ] Delete
+  - [x] Delete
   - [x] Read by id
   - [x] Read list
     - [x] Allow filtering by `color` and `brand`

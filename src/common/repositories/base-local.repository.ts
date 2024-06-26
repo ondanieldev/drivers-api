@@ -31,6 +31,10 @@ export class BaseLocalRepository<
     return entity;
   }
 
+  public async delete(id: string): Promise<void> {
+    this.items = this.items.filter((item) => item.id !== id);
+  }
+
   public async find(
     findBo: FindBo<TEntity, TRelations>,
   ): Promise<TEntity | null> {

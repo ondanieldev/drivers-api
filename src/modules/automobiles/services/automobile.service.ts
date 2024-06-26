@@ -56,4 +56,14 @@ export class AutomobileService {
 
     return this.automobileRepository.save(automobile);
   }
+
+  public async delete(id: string): Promise<void> {
+    const automobile = await this.automobileRepository.find({ data: { id } });
+
+    if (!automobile) {
+      throw new AutomobileNotFoundError(id);
+    }
+
+    await this.automobileRepository.delete(automobile.id);
+  }
 }

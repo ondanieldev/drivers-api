@@ -48,6 +48,11 @@ export class AutomobileRestRouter implements RestRouter {
       this.automobileRestController.update.bind(this.automobileRestController),
     );
 
+    router.delete(
+      '/automobile/:id',
+      this.automobileRestController.delete.bind(this.automobileRestController),
+    );
+
     return router;
   }
 }

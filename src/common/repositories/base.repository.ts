@@ -5,6 +5,8 @@ export class BaseRepository<
 > {
   create: (data: TCreate) => Promise<TEntity>;
 
+  delete: (id: string) => Promise<void>;
+
   find: ({}: FindBo<TEntity, TRelations>) => Promise<TEntity | null>;
 
   findMany: ({}: FindBo<TEntity, TRelations>) => Promise<TEntity[]>;

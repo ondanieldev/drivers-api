@@ -1,4 +1,5 @@
 import { CreateAutomobileBo, UpdateAutomobileBo } from '../bos/automobile.bo';
+import { AutomobileNotFoundError } from '../errors/automobile.error';
 import { AutomobileLocalRepository } from '../repositories/automobile-local.repository';
 import { AutomobileRepository } from '../repositories/automobile.repository';
 import { AutomobileService } from './automobile.service';
@@ -163,5 +164,24 @@ describe('AutomobileService', () => {
     // Assert
     expect(readAutomobile).toBeDefined();
     expect(readAutomobile.id).toBe(createdAutomobile.id);
+  });
+
+  it('should delete an automobile', async () => {
+    // Arrange
+    const createData: CreateAutomobileBo = {
+      brand: 'Toyota',
+      color: 'black',
+      licensePlate: 'ABC-1234',
+    };
+
+    const automobile = await automobileService.create(createData);
+
+    // Act
+    await automobileService.delete(automobile.id);
+
+    // Assert
+    await expect(automobileService.readById(automobile.id)).rejects.toThrow(
+      AutomobileNotFoundError,
+    );
   });
 });
