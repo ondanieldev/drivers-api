@@ -1,4 +1,4 @@
-import { CreateAutomobileBo } from '../bos/automobile.bo';
+import { CreateAutomobileBo, UpdateAutomobileBo } from '../bos/automobile.bo';
 import { AutomobileLocalRepository } from '../repositories/automobile-local.repository';
 import { AutomobileRepository } from '../repositories/automobile.repository';
 import { AutomobileService } from './automobile.service';
@@ -28,5 +28,33 @@ describe('AutomobileService', () => {
     expect(automobile.brand).toBe(data.brand);
     expect(automobile.color).toBe(data.color);
     expect(automobile.licensePlate).toBe(data.licensePlate);
+  });
+
+  it('should update an automobile', async () => {
+    // Arrange
+    const createData: CreateAutomobileBo = {
+      brand: 'Toyota',
+      color: 'black',
+      licensePlate: 'ABC-1234',
+    };
+    const automobile = await automobileService.create(createData);
+
+    const updateData: UpdateAutomobileBo = {
+      brand: 'Honda',
+      color: 'white',
+      licensePlate: 'XYZ-9876',
+    };
+
+    // Act
+    const updatedAutomobile = await automobileService.update({
+      data: updateData,
+      id: automobile.id,
+    });
+
+    // Assert
+    expect(updatedAutomobile).toBeDefined();
+    expect(updatedAutomobile.brand).toBe(updateData.brand);
+    expect(updatedAutomobile.color).toBe(updateData.color);
+    expect(updatedAutomobile.licensePlate).toBe(updateData.licensePlate);
   });
 });

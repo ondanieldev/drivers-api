@@ -4,3 +4,5 @@ export type CreateAutomobileBo = Pick<
   AutomobileEntity,
   'brand' | 'color' | 'licensePlate'
 >;
+
+export type UpdateAutomobileBo = CreateAutomobileBo;

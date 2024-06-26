@@ -12,3 +12,5 @@ export class CreateAutomobileDto implements CreateAutomobileBo {
   @IsString()
   licensePlate: string;
 }
+
+export class UpdateAutomobileDto extends CreateAutomobileDto {}

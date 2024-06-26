@@ -4,7 +4,10 @@ import { inject, injectable } from 'tsyringe';
 import { RestRouter } from 'common/interfaces/router.inteface';
 import { validatorMiddleware } from 'common/middlewares/validator.middleware';
 
-import { CreateAutomobileDto } from '../dtos/automobile.dto';
+import {
+  CreateAutomobileDto,
+  UpdateAutomobileDto,
+} from '../dtos/automobile.dto';
 import { AutomobileRestController } from '../rest-controllers/automobile.rest-controller';
 
 @injectable()
@@ -21,6 +24,12 @@ export class AutomobileRestRouter implements RestRouter {
       '/automobile',
       validatorMiddleware('body', CreateAutomobileDto),
       this.automobileRestController.create.bind(this.automobileRestController),
+    );
+
+    router.put(
+      '/automobile/:id',
+      validatorMiddleware('body', UpdateAutomobileDto),
+      this.automobileRestController.update.bind(this.automobileRestController),
     );
 
     return router;

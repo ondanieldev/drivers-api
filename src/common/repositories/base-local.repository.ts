@@ -1,13 +1,16 @@
 import { v4 } from 'uuid';
 
-import { BaseEntity } from 'common/entities/base.entity';
+import { StatusCode } from 'common/enums/status-code.enum';
+import { AppError } from 'common/errors/app.error';
 
-import { BaseRepository } from './base.repository';
+import { BaseEntity } from '../entities/base.entity';
+import { BaseRepository, FindBo } from './base.repository';
 
 export class BaseLocalRepository<
   TEntity extends BaseEntity,
   TCreate extends object,
-> implements BaseRepository<TEntity, TCreate>
+  TRelations extends string[] = [],
+> implements BaseRepository<TEntity, TCreate, TRelations>
 {
   protected items: TEntity[] = [];
 
@@ -20,5 +23,54 @@ export class BaseLocalRepository<
     this.items.push(entity);
 
     return entity;
+  }
+
+  public async find({
+    data,
+  }: FindBo<TEntity, TRelations>): Promise<TEntity | null> {
+    const entity = this.items.find((item) => this.isMatch(item, data));
+
+    if (!entity) return null;
+
+    return entity;
+  }
+
+  public async save(entity: TEntity): Promise<TEntity> {
+    const currentEntity = this.items.find((item) => item.id === entity.id);
+
+    if (!currentEntity) {
+      throw new AppError(
+        'Save entity error',
+        StatusCode.NOT_FOUND,
+        'Cannot find entity to be saved',
+      );
+    }
+
+    Object.assign(currentEntity, entity);
+
+    return currentEntity;
+  }
+
+  private isMatch(
+    entity: TEntity,
+    findData: Partial<TEntity> | Partial<TEntity>[],
+  ): boolean {
+    let match: boolean = true;
+
+    const findDataArray = Array.isArray(findData) ? findData : [findData];
+
+    for (const findData of findDataArray) {
+      match = true;
+      for (const [key, value] of Object.entries(findData)) {
+        if (entity[key as keyof TEntity] !== value) {
+          match = false;
+        }
+      }
+      if (match) {
+        break;
+      }
+    }
+
+    return match;
   }
 }

@@ -26,7 +26,6 @@
   - [x] Setup `cors`
   - [x] Setup `helmet`
   - [x] Create server entrypoint
-  - [ ] Create routes entrypoint
   - [x] Create base middlewares
     - [x] Endpoint logger
     - [x] Error handler
@@ -39,7 +38,7 @@
 
 - [x] Develop `automobile` module
   - [x] Create
-  - [ ] Update
+  - [X] Update
   - [ ] Delete
   - [ ] Read by id
   - [ ] Read list

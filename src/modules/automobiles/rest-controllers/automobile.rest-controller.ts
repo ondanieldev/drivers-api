@@ -16,4 +16,12 @@ export class AutomobileRestController {
     const result = await this.automobileService.create(req.body);
     return res.status(StatusCode.CREATED).json(result);
   }
+
+  public async update(req: Request, res: Response): Promise<Response> {
+    const result = await this.automobileService.update({
+      data: req.body,
+      id: req.params.id,
+    });
+    return res.status(StatusCode.OK).json(result);
+  }
 }
