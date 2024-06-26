@@ -80,3 +80,5 @@
   - [ ] Create `docker-compose.yml`
   - [ ] Update `README.md` scripts
 - [ ] Implement `PostgreSQL` database
+- [ ] Rename routes to plural names and setup route base name on module
+- [ ] Trim string on DTOs
