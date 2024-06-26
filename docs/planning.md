@@ -21,7 +21,7 @@
   - [x] `eslint`
   - [x] `prettier`
   - [x] `editorconfig`
-- [] Setup Jest for unit testing
+- [x] Setup Jest for unit testing
 - [] Setup `class-validator` and `class-transformer` to enhance DTOs
 - [] Setup tsyringe for dependency injection
 

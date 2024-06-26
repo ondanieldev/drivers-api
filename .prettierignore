@@ -3,3 +3,4 @@
 .yarn
 dist
 node_modules
+test/coverage
