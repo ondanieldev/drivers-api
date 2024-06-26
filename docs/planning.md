@@ -31,12 +31,14 @@
     - [x] Endpoint logger
     - [x] Error handler
 - [ ] Setup `class-validator` and `class-transformer` to enhance DTOs
-- [ ] Setup tsyringe for dependency injection
+- [x] Setup tsyringe for dependency injection
+- [x] Setup base entities and repositories
+- [x] Setup modules pattern
 
 ## Modules
 
-- [ ] Develop `automobile` module
-  - [ ] Create
+- [x] Develop `automobile` module
+  - [x] Create
   - [ ] Update
   - [ ] Delete
   - [ ] Read by id
