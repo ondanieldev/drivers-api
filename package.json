@@ -20,6 +20,8 @@
     "test:unit:watch": "yarn test --config ./test/jest-unit.json --watch"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
     "@types/jest": "^29.5.12",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
@@ -35,5 +37,11 @@
     "tsconfig-paths": "^4.2.0",
     "tsx": "^4.15.7",
     "typescript": "^5.5.2"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "helmet": "^7.1.0"
   }
 }
