@@ -16,11 +16,11 @@
 - [x] Setup `.env`
 - [x] Setup `.gitignore`
 - [x] Setup `package.json` scripts
-- [] Setup `modules` and `common` folders
-- [] Setup code linters
-  - [] `eslint`
-  - [] `prettier`
-  - [] `editorconfig`
+- [x] Setup `common`, `modules` and `providers` folders
+- [x] Setup code linters
+  - [x] `eslint`
+  - [x] `prettier`
+  - [x] `editorconfig`
 - [] Setup Jest for unit testing
 - [] Setup `class-validator` and `class-transformer` to enhance DTOs
 - [] Setup tsyringe for dependency injection
