@@ -1,0 +1,17 @@
+{
+  "name": "drivers-api",
+  "version": "1.0.0",
+  "author": "Daniel Nascimento <me@ondaniel.com.br>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "prebuild": "rm -rf ./dist",
+    "run:dev": "tsx ./src/index.ts",
+    "run:prod": "node ./dist/index.js"
+  },
+  "devDependencies": {
+    "tsc": "^2.0.4",
+    "tsx": "^4.15.7",
+    "typescript": "^5.5.2"
+  }
+}

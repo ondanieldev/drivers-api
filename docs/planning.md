@@ -7,11 +7,15 @@
 
 ## Setup
 
-- [] Setup `TypeScript`
-  - [] Install and config `typescript`
-  - [] Install and config `tsc`
-  - [] Install and config `tsx`
-- [] Setup `package.json` scripts
+- [x] Setup `TypeScript`
+  - [x] Install and config `typescript`
+  - [x] Install and config `tsc`
+  - [x] Install and config `tsx`
+- [x] Setup license
+- [x] Setup entrypoint
+- [x] Setup `.env`
+- [x] Setup `.gitignore`
+- [x] Setup `package.json` scripts
 - [] Setup `modules` and `common` folders
 - [] Setup code linters
   - [] `eslint`
@@ -57,6 +61,7 @@
   - [] Title
   - [] Slogan
   - [] Description
+  - [] Project structure
   - [] How to setup
   - [] How to run
   - [] How to test
