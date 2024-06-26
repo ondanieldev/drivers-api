@@ -7,6 +7,8 @@ export class BaseRepository<
 
   find: ({}: FindBo<TEntity, TRelations>) => Promise<TEntity | null>;
 
+  findMany: ({}: FindBo<TEntity, TRelations>) => Promise<TEntity[]>;
+
   save: (entity: TEntity) => Promise<TEntity>;
 }
 

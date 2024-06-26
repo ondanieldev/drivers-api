@@ -2,6 +2,7 @@ import { v4 } from 'uuid';
 
 import { StatusCode } from 'common/enums/status-code.enum';
 import { AppError } from 'common/errors/app.error';
+import { BaseLocalRepositoryUtil } from 'common/utils/base-local-repository.util';
 
 import { BaseEntity } from '../entities/base.entity';
 import { BaseRepository, FindBo } from './base.repository';
@@ -12,6 +13,11 @@ export class BaseLocalRepository<
   TRelations extends string[] = [],
 > implements BaseRepository<TEntity, TCreate, TRelations>
 {
+  private baseLocalRepositoryUtil = new BaseLocalRepositoryUtil<
+    TEntity,
+    TRelations
+  >();
+
   protected items: TEntity[] = [];
 
   public async create(data: TCreate): Promise<TEntity> {
@@ -25,14 +31,24 @@ export class BaseLocalRepository<
     return entity;
   }
 
-  public async find({
-    data,
-  }: FindBo<TEntity, TRelations>): Promise<TEntity | null> {
-    const entity = this.items.find((item) => this.isMatch(item, data));
+  public async find(
+    findBo: FindBo<TEntity, TRelations>,
+  ): Promise<TEntity | null> {
+    const entity = this.items.find((item) =>
+      this.baseLocalRepositoryUtil.doesEntityMatchAnyFindData(item, findBo),
+    );
 
     if (!entity) return null;
 
     return entity;
+  }
+
+  public async findMany(
+    findBo: FindBo<TEntity, TRelations>,
+  ): Promise<TEntity[]> {
+    return this.items.filter((item) =>
+      this.baseLocalRepositoryUtil.doesEntityMatchAnyFindData(item, findBo),
+    );
   }
 
   public async save(entity: TEntity): Promise<TEntity> {
@@ -49,28 +65,5 @@ export class BaseLocalRepository<
     Object.assign(currentEntity, entity);
 
     return currentEntity;
-  }
-
-  private isMatch(
-    entity: TEntity,
-    findData: Partial<TEntity> | Partial<TEntity>[],
-  ): boolean {
-    let match: boolean = true;
-
-    const findDataArray = Array.isArray(findData) ? findData : [findData];
-
-    for (const findData of findDataArray) {
-      match = true;
-      for (const [key, value] of Object.entries(findData)) {
-        if (entity[key as keyof TEntity] !== value) {
-          match = false;
-        }
-      }
-      if (match) {
-        break;
-      }
-    }
-
-    return match;
   }
 }
