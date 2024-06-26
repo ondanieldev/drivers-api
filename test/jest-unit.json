@@ -11,5 +11,6 @@
   "testRegex": ".(service)\\.spec\\.ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
-  }
+  },
+  "setupFilesAfterEnv": ["../test/jest-setup.js"]
 }
