@@ -3,7 +3,7 @@
     "**/modules/**/*.service.ts",
     "!**/providers/**"
   ],
-  "coverageDirectory": "./coverage",
+  "coverageDirectory": "../test/coverage",
   "moduleFileExtensions": ["js", "json", "ts"],
   "modulePaths": ["<rootDir>"],
   "rootDir": "../src",

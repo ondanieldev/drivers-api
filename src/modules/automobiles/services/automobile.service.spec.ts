@@ -59,6 +59,23 @@ describe('AutomobileService', () => {
     expect(updatedAutomobile.licensePlate).toBe(updateData.licensePlate);
   });
 
+  it('should NOT update an automobile that does not exist', async () => {
+    // Arrange
+    const data: UpdateAutomobileBo = {
+      brand: 'Honda',
+      color: 'white',
+      licensePlate: 'XYZ-9876',
+    };
+
+    // Assert
+    await expect(
+      automobileService.update({
+        data: data,
+        id: 'non-existing-id',
+      }),
+    ).rejects.toThrow(AutomobileNotFoundError);
+  });
+
   it('should read automobile list', async () => {
     // Arrange
     const createDataList: CreateAutomobileBo[] = [
@@ -181,6 +198,13 @@ describe('AutomobileService', () => {
 
     // Assert
     await expect(automobileService.readById(automobile.id)).rejects.toThrow(
+      AutomobileNotFoundError,
+    );
+  });
+
+  it('should NOT delete an automobile that does not exist', async () => {
+    // Assert
+    await expect(automobileService.delete('non-existing-id')).rejects.toThrow(
       AutomobileNotFoundError,
     );
   });
