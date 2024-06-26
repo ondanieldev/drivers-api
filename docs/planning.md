@@ -26,22 +26,23 @@
   - [x] Setup `cors`
   - [x] Setup `helmet`
   - [x] Create server entrypoint
-  - [ ] Create routes entrypoint
   - [x] Create base middlewares
     - [x] Endpoint logger
     - [x] Error handler
-- [ ] Setup `class-validator` and `class-transformer` to enhance DTOs
-- [ ] Setup tsyringe for dependency injection
+- [x] Setup `class-validator` and `class-transformer` to enhance DTOs
+- [x] Setup tsyringe for dependency injection
+- [x] Setup base entities and repositories
+- [x] Setup modules pattern
 
 ## Modules
 
-- [ ] Develop `automobile` module
-  - [ ] Create
-  - [ ] Update
-  - [ ] Delete
-  - [ ] Read by id
-  - [ ] Read list
-    - [ ] Allow filtering by `color` and `brand`
+- [x] Develop `automobile` module
+  - [x] Create
+  - [x] Update
+  - [x] Delete
+  - [x] Read by id
+  - [x] Read list
+    - [x] Allow filtering by `color` and `brand`
 - [ ] Develop `driver` module
   - [ ] Create
   - [ ] Update

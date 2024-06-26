@@ -3,7 +3,7 @@
     "**/modules/**/*.service.ts",
     "!**/providers/**"
   ],
-  "coverageDirectory": "./coverage",
+  "coverageDirectory": "../test/coverage",
   "moduleFileExtensions": ["js", "json", "ts"],
   "modulePaths": ["<rootDir>"],
   "rootDir": "../src",
@@ -11,5 +11,6 @@
   "testRegex": ".(service)\\.spec\\.ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
-  }
+  },
+  "setupFilesAfterEnv": ["../test/jest-setup.js"]
 }

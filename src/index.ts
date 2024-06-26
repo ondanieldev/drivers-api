@@ -1,4 +1,6 @@
+import 'express-async-errors';
 import 'dotenv/config';
+import 'reflect-metadata';
 
 import cors from 'cors';
 import express from 'express';
@@ -7,6 +9,8 @@ import helmet from 'helmet';
 import { restApiConfig } from 'common/config/rest-api.config';
 import { errorHandlerMiddleware } from 'common/middlewares/error-handler.middleware';
 import { pathLoggerMiddleware } from 'common/middlewares/path-logger.middleware';
+
+import { AppModule } from 'modules/app/app.module';
 
 function bootstrap() {
   const { port } = restApiConfig();
@@ -18,6 +22,10 @@ function bootstrap() {
   restApi.use(helmet()); // Enable security headers
 
   restApi.use(pathLoggerMiddleware); // Log all incoming requests
+
+  const appModule = new AppModule();
+  appModule.injectDependencies();
+  appModule.useRestRouter(restApi);
 
   restApi.use(errorHandlerMiddleware); // Will catch any errors and must be the last middleware added
 
