@@ -38,11 +38,11 @@
 
 - [x] Develop `automobile` module
   - [x] Create
-  - [X] Update
+  - [x] Update
   - [ ] Delete
   - [ ] Read by id
-  - [ ] Read list
-    - [ ] Allow filtering by `color` and `brand`
+  - [x] Read list
+    - [x] Allow filtering by `color` and `brand`
 - [ ] Develop `driver` module
   - [ ] Create
   - [ ] Update

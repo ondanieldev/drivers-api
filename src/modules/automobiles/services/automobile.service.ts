@@ -16,6 +16,17 @@ export class AutomobileService {
     return this.automobileRepository.create(data);
   }
 
+  public async readList(
+    data: Partial<AutomobileEntity>,
+  ): Promise<AutomobileEntity[]> {
+    return this.automobileRepository.findMany({
+      data,
+      options: {
+        insensitiveKeys: ['brand', 'color'],
+      },
+    });
+  }
+
   public async update({
     data,
     id,

@@ -6,6 +6,7 @@ import { validatorMiddleware } from 'common/middlewares/validator.middleware';
 
 import {
   CreateAutomobileDto,
+  ReadAutomobileListDto,
   UpdateAutomobileDto,
 } from '../dtos/automobile.dto';
 import { AutomobileRestController } from '../rest-controllers/automobile.rest-controller';
@@ -24,6 +25,14 @@ export class AutomobileRestRouter implements RestRouter {
       '/automobile',
       validatorMiddleware('body', CreateAutomobileDto),
       this.automobileRestController.create.bind(this.automobileRestController),
+    );
+
+    router.get(
+      '/automobile',
+      validatorMiddleware('query', ReadAutomobileListDto),
+      this.automobileRestController.readList.bind(
+        this.automobileRestController,
+      ),
     );
 
     router.put(

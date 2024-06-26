@@ -57,4 +57,91 @@ describe('AutomobileService', () => {
     expect(updatedAutomobile.color).toBe(updateData.color);
     expect(updatedAutomobile.licensePlate).toBe(updateData.licensePlate);
   });
+
+  it('should read automobile list', async () => {
+    // Arrange
+    const createDataList: CreateAutomobileBo[] = [
+      {
+        brand: 'Toyota',
+        color: 'black',
+        licensePlate: 'ABC-1234',
+      },
+      {
+        brand: 'Honda',
+        color: 'white',
+        licensePlate: 'XYZ-9876',
+      },
+    ];
+
+    for (const createData of createDataList) {
+      await automobileService.create(createData);
+    }
+
+    // Act
+    const automobileList = await automobileService.readList({});
+
+    // Assert
+    expect(automobileList).toBeDefined();
+    expect(automobileList.length).toBe(2);
+  });
+
+  it('should read automobile list filtering by brand', async () => {
+    // Arrange
+    const createDataList: CreateAutomobileBo[] = [
+      {
+        brand: 'Toyota',
+        color: 'black',
+        licensePlate: 'ABC-1234',
+      },
+      {
+        brand: 'Honda',
+        color: 'white',
+        licensePlate: 'XYZ-9876',
+      },
+    ];
+
+    for (const createData of createDataList) {
+      await automobileService.create(createData);
+    }
+
+    // Act
+    const automobileList = await automobileService.readList({
+      brand: 'Toyota',
+    });
+
+    // Assert
+    expect(automobileList).toBeDefined();
+    expect(automobileList.length).toBe(1);
+    expect(automobileList[0].brand).toBe('Toyota');
+  });
+
+  it('should read automobile list filtering by color', async () => {
+    // Arrange
+    const createDataList: CreateAutomobileBo[] = [
+      {
+        brand: 'Toyota',
+        color: 'black',
+        licensePlate: 'ABC-1234',
+      },
+      {
+        brand: 'Honda',
+        color: 'white',
+        licensePlate: 'XYZ-9876',
+      },
+    ];
+
+    for (const createData of createDataList) {
+      await automobileService.create(createData);
+    }
+
+    // Act
+    const automobileList = await automobileService.readList({
+      color: 'white',
+    });
+
+    // Assert
+    expect(automobileList).toBeDefined();
+    expect(automobileList.length).toBe(1);
+    expect(automobileList[0].color).toBe('white');
+  });
 });
