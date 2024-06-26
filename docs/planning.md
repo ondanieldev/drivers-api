@@ -30,7 +30,7 @@
   - [x] Create base middlewares
     - [x] Endpoint logger
     - [x] Error handler
-- [ ] Setup `class-validator` and `class-transformer` to enhance DTOs
+- [x] Setup `class-validator` and `class-transformer` to enhance DTOs
 - [x] Setup tsyringe for dependency injection
 - [x] Setup base entities and repositories
 - [x] Setup modules pattern
