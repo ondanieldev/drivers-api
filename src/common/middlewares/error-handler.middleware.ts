@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
-import { ErrorStatusCode } from 'common/enums/error-status-code.enum';
+import { StatusCode } from 'common/enums/status-code.enum';
 import { AppError } from 'common/errors/app.error';
 import { logger } from 'common/utils/logger';
 
@@ -21,9 +21,9 @@ export function errorHandlerMiddleware(
 
   // Otherwise, log the error and return a generic error message
   logger.error(err);
-  return response.status(ErrorStatusCode.INTERNAL_SERVER_ERROR).json({
+  return response.status(StatusCode.INTERNAL_SERVER_ERROR).json({
     error: 'Internal server error',
     message: 'An unknown error has occurred.',
-    statusCode: ErrorStatusCode.INTERNAL_SERVER_ERROR,
+    statusCode: StatusCode.INTERNAL_SERVER_ERROR,
   });
 }
