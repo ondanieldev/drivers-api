@@ -1,0 +1,19 @@
+import { Request, Response } from 'express';
+import { inject, injectable } from 'tsyringe';
+
+import { StatusCode } from 'common/enums/status-code.enum';
+
+import { AutomobileService } from '../services/automobile.service';
+
+@injectable()
+export class AutomobileRestController {
+  constructor(
+    @inject('AutomobileService')
+    private readonly automobileService: AutomobileService,
+  ) {}
+
+  public async create(req: Request, res: Response): Promise<Response> {
+    const result = await this.automobileService.create(req.body);
+    return res.status(StatusCode.CREATED).json(result);
+  }
+}
