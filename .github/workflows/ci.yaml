@@ -47,3 +47,5 @@ jobs:
             cd ~/drivers-api
             cp ~/backup/drivers-api/.env ~/drivers-api/.env 
             yarn install
+            yarn docker:build
+            yarn docker:up

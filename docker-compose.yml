@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  api:
+    container_name: drivers-api
+    image: ondanieldev/drivers-api:latest 
+    ports:
+      - ${REST_API_PORT}:${REST_API_PORT}
+    restart: unless-stopped
+
+volumes:
+  drivers-api_postgresql_volume:
