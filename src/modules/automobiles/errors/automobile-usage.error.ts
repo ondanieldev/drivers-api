@@ -18,3 +18,23 @@ export class DriverAlreadyUsingAnAutomobileConflictError extends AppError {
     );
   }
 }
+
+export class AutomobileUsageNotFoundError extends AppError {
+  constructor(id: string) {
+    super(
+      AutomobileUsageNotFoundError.name,
+      StatusCode.NOT_FOUND,
+      `The automobile usage "${id}" was not found.`,
+    );
+  }
+}
+
+export class AutomobileUsageAlreadyFinishedConflictError extends AppError {
+  constructor({ finishedAt, id }: { id: string; finishedAt: Date }) {
+    super(
+      AutomobileUsageNotFoundError.name,
+      StatusCode.CONFLICT,
+      `The automobile usage "${id}" was already finished at ${finishedAt.toISOString}.`,
+    );
+  }
+}

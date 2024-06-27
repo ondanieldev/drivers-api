@@ -53,7 +53,8 @@
 - [x] Develop relationship between `automobile` and `driver`
   - [x] Start
     - [x] A `driver` can use only one `automibile` at the same time  
-  - [ ] Finish
+  - [x] Finish
+    - [x] Cannot finish an `usage` that is already finished
   - [ ] Read list
     - [ ] Data that must be shown: full `register` object, `driver.name`, full `automobile` object
   
