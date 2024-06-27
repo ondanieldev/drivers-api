@@ -36,7 +36,7 @@
  *             schema:
  *               $ref: '#/components/schemas/AutomobileEntityList'
  *
- * /automobiles/:id:
+ * /automobiles/{id}:
  *   get:
  *     summary: Read an automobile by id
  *     tags: [Automobiles]

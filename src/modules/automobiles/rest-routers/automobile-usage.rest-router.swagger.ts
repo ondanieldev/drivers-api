@@ -32,8 +32,8 @@
  *             schema:
  *               $ref: '#/components/schemas/AutomobileUsageEntityList'
  *
- * /automobiles/usages/finish:
- *   get:
+ * /automobiles/usages/finish/{id}:
+ *   post:
  *     summary: Finish an automobile usage
  *     tags: [Automobiles Usages]
  *     parameters:

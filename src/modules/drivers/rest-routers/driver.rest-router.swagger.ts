@@ -36,7 +36,7 @@
  *             schema:
  *               $ref: '#/components/schemas/DriverEntityList'
  *
- * /drivers/:id:
+ * /drivers/{id}:
  *   get:
  *     summary: Read a driver by id
  *     tags: [Drivers]
