@@ -44,11 +44,7 @@ export class DriverService {
     data: UpdateDriverBo;
     id: string;
   }): Promise<DriverEntity> {
-    const driver = await this.driverRepository.find({ data: { id } });
-
-    if (!driver) {
-      throw new DriverNotFoundError(id);
-    }
+    const driver = await this.readById(id);
 
     Object.assign(driver, data);
 
@@ -56,11 +52,7 @@ export class DriverService {
   }
 
   public async delete(id: string): Promise<void> {
-    const driver = await this.driverRepository.find({ data: { id } });
-
-    if (!driver) {
-      throw new DriverNotFoundError(id);
-    }
+    const driver = await this.readById(id);
 
     await this.driverRepository.delete(driver.id);
   }

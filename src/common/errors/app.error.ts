@@ -7,6 +7,7 @@ export class AppError extends Error {
   constructor(name: string, statusCode: StatusCode, message: string) {
     super(message);
 
+    // Restore prototype chain (see https://stackoverflow.com/a/48342359)
     Object.setPrototypeOf(this, new.target.prototype);
 
     this.name = name;

@@ -9,7 +9,10 @@ export function validatorMiddleware<T>(
   targetClass: ClassType<T>,
 ) {
   return async (req: Request, _res: Response, next: NextFunction) => {
+    // To make validate works, we need to make req[segment] to be an instance of targetClass
     req[segment] = Object.setPrototypeOf(req[segment], targetClass.prototype);
+
+    // Validate class-validator decorators
     const errors = await validate(req[segment], {
       whitelist: true,
       forbidNonWhitelisted: true,
@@ -17,7 +20,10 @@ export function validatorMiddleware<T>(
     if (errors.length > 0) {
       throw errors;
     }
+
+    // Apply class-transformer decorators
     req.body = plainToClass(targetClass, req[segment]);
+
     next();
   };
 }

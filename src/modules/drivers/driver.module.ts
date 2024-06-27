@@ -33,7 +33,7 @@ export class DriverModule implements Module {
     );
   }
 
-  public useRestRouter(app: Express): void {
+  public registerRestRouter(app: Express): void {
     const restRouter = container.resolve<DriverRestRouter>('DriverRestRouter');
     app.use('/drivers', restRouter.getRouter());
   }

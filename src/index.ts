@@ -26,7 +26,7 @@ function bootstrap() {
 
   const appModule = new AppModule();
   appModule.injectDependencies();
-  appModule.useRestRouter(restApi);
+  appModule.registerRestRouter(restApi);
 
   restApi.use(errorHandlerMiddleware); // Will catch any errors and must be the last middleware added
 

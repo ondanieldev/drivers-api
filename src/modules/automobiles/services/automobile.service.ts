@@ -46,11 +46,7 @@ export class AutomobileService {
     data: UpdateAutomobileBo;
     id: string;
   }): Promise<AutomobileEntity> {
-    const automobile = await this.automobileRepository.find({ data: { id } });
-
-    if (!automobile) {
-      throw new AutomobileNotFoundError(id);
-    }
+    const automobile = await this.readById(id);
 
     Object.assign(automobile, data);
 
@@ -58,11 +54,7 @@ export class AutomobileService {
   }
 
   public async delete(id: string): Promise<void> {
-    const automobile = await this.automobileRepository.find({ data: { id } });
-
-    if (!automobile) {
-      throw new AutomobileNotFoundError(id);
-    }
+    const automobile = await this.readById(id);
 
     await this.automobileRepository.delete(automobile.id);
   }

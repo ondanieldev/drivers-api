@@ -75,7 +75,7 @@
   - [ ] Useful links
     - [ ] Insomnia
     - [ ] Other docs links
-- [ ] Create synced Insomnia repository
+- [x] Create synced Insomnia repository
 
 ## Improvements
 
@@ -84,4 +84,3 @@
   - [ ] Create `docker-compose.yml`
   - [ ] Update `README.md` scripts
 - [ ] Implement `PostgreSQL` database
-- [ ] Review code and add comments that could be useful

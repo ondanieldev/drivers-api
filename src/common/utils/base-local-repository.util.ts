@@ -4,7 +4,15 @@ import {
   FindOptionsBo,
 } from 'common/repositories/base.repository';
 
+/**
+ * Utility class for local repositories.
+ */
 export class BaseLocalRepositoryUtil<TEntity, TRelations> {
+  /**
+   * Check if the entity matches any of the find data.
+   * Find data is an object or an array of objects, if entity matches any of the objects, it returns true.
+   * This is basically an OR operation between the find data objects.
+   */
   public doesEntityMatchAnyFindData(
     entity: TEntity,
     find: FindBo<TEntity, TRelations>,
@@ -20,6 +28,10 @@ export class BaseLocalRepositoryUtil<TEntity, TRelations> {
     return false;
   }
 
+  /**
+   * Check if the entity matches a single object of find data. Which means all the keys and values of the object should match the entity.
+   * This is basically an AND operation between the keys and values of the find data object.
+   */
   public doesEntityMatchFindData(
     entity: TEntity,
     findData: FindDataBo<TEntity>,
@@ -50,6 +62,9 @@ export class BaseLocalRepositoryUtil<TEntity, TRelations> {
     return comparisons.reduce((acc, curr) => acc && curr, true);
   }
 
+  /**
+   * Check if the key of the entity matches the value exactly.
+   */
   private isKeyMatch<TEntity>(
     entity: TEntity,
     key: keyof TEntity,
@@ -58,6 +73,9 @@ export class BaseLocalRepositoryUtil<TEntity, TRelations> {
     return entity[key] === value;
   }
 
+  /**
+   * Check if the key of the entity matches the value case insensitively.
+   */
   private isInsentiveKeyMatch<TEntity>(
     entity: TEntity,
     key: keyof TEntity,
@@ -75,6 +93,9 @@ export class BaseLocalRepositoryUtil<TEntity, TRelations> {
     return false;
   }
 
+  /**
+   * Check if the key of the entity includes the value.
+   */
   private isIncludeKeyMatch<TEntity>(
     entity: TEntity,
     key: keyof TEntity,
