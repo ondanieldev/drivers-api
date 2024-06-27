@@ -50,9 +50,9 @@
   - [x] Read by id
   - [x] Read list
     - [x] Allow filtering by `name`
-- [ ] Develop relationship between `automobile` and `driver`
-  - [ ] Start
-    - [ ] A `driver` can use only one `automibile` at the same time  
+- [x] Develop relationship between `automobile` and `driver`
+  - [x] Start
+    - [x] A `driver` can use only one `automibile` at the same time  
   - [ ] Finish
   - [ ] Read list
     - [ ] Data that must be shown: full `register` object, `driver.name`, full `automobile` object
@@ -82,3 +82,4 @@
 - [ ] Implement `PostgreSQL` database
 - [ ] Rename routes to plural names and setup route base name on module
 - [ ] Trim string on DTOs
+- [ ] Maybe allow string filters to use regex instead of exact matching
