@@ -67,8 +67,7 @@ It contains two main modules to manage automobiles, drivers and a usage relation
 
 - If you are running locally, you can access Swagger by clicking [here](http://localhost:3000/api):
   - Please note that the link above uses the default port `3000`. So if you have changed it, then you must change on the link as well.
-- If you want to try it out without running locally, you can access the deployed version by clicking [here](https://drivers-api.ondaniel.com.br/api):
-  - Make sure to select the option `https://drivers-api.ondaniel.com.br` under the "Servers" select box. You may need to select it each time you try to execute a new endpoint.
+- If you want to try it out without running locally, you can access the deployed version by clicking [here](https://drivers-api.ondaniel.com.br/api).
 
 ### Sending HTTP requests via Insomnia
 
