@@ -1,5 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
+import { DriverService } from 'modules/drivers/services/driver.service';
+
 import { StartAutomobileUsageBo } from '../bos/automobile-usage.bo';
 import { AutomobileUsageEntity } from '../entities/automobile-usage.entity';
 import {
@@ -8,10 +10,17 @@ import {
   DriverAlreadyUsingAnAutomobileConflictError,
 } from '../errors/automobile-usage.error';
 import { AutomobileUsageRepository } from '../repositories/automobile-usage.repository';
+import { AutomobileService } from './automobile.service';
 
 @injectable()
 export class AutomobileUsageService {
   constructor(
+    @inject('AutomobileService')
+    private readonly automobileService: AutomobileService,
+
+    @inject('DriverService')
+    private readonly driverService: DriverService,
+
     @inject('AutomobileUsageRepository')
     private readonly automobileUsageRepository: AutomobileUsageRepository,
   ) {}
@@ -19,6 +28,10 @@ export class AutomobileUsageService {
   public async start(
     data: StartAutomobileUsageBo,
   ): Promise<AutomobileUsageEntity> {
+    // Ensure both driver and automobile exists
+    await this.driverService.readById(data.driverId);
+    await this.automobileService.readById(data.automobileId);
+
     const driverUnfinishedUsage = await this.automobileUsageRepository.find({
       data: {
         driverId: data.driverId,
