@@ -1,8 +1,4 @@
-import {
-  FindBo,
-  FindDataBo,
-  FindOptionsBo,
-} from 'common/repositories/base.repository';
+import { FindBo, FindOptionsBo } from 'common/repositories/base.repository';
 
 /**
  * Utility class for local repositories.
@@ -34,25 +30,29 @@ export class BaseLocalRepositoryUtil<TEntity, TRelations> {
    */
   public doesEntityMatchFindData(
     entity: TEntity,
-    findData: FindDataBo<TEntity>,
+    findData: Partial<TEntity>,
     findOptions?: FindOptionsBo<TEntity>,
   ): boolean {
     const comparisons = [];
 
     for (const [key, value] of Object.entries(findData)) {
-      const isKeyMatch = this.isKeyMatch(entity, key as keyof TEntity, value);
+      const isKeyMatch = this.isKeyMatch(
+        entity,
+        key as keyof TEntity,
+        value as TEntity[keyof TEntity],
+      );
 
       const isInsentiveKeyMatch = this.isInsentiveKeyMatch(
         entity,
         key as keyof TEntity,
-        value,
+        value as TEntity[keyof TEntity],
         findOptions,
       );
 
       const isIncludeKeyMatch = this.isIncludeKeyMatch(
         entity,
         key as keyof TEntity,
-        value,
+        value as TEntity[keyof TEntity],
         findOptions,
       );
 
