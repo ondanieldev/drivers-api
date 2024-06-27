@@ -50,9 +50,11 @@
   - [x] Read by id
   - [x] Read list
     - [x] Allow filtering by `name`
-- [x] Develop relationship between `automobile` and `driver`
+- [x] Develop `automobile-usage`
   - [x] Start
-    - [x] A `driver` can use only one `automibile` at the same time  
+    - [x] A `driver` can use only one `automobile` at the same time  
+    - [ ] An `automobile-usage` cannot be started for a `driver` that does not exist  
+    - [ ] An `automobile-usage` cannot be started for an `automobile` that does not exist  
     - [ ] An `automobile` can be only used by one `driver` at the same time
   - [x] Finish
     - [x] Cannot finish an `usage` that is already finished
