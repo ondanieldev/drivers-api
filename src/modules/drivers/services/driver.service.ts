@@ -32,7 +32,7 @@ export class DriverService {
     return this.driverRepository.findMany({
       data,
       options: {
-        insensitiveKeys: ['name'],
+        includeSearchKeys: ['name'],
       },
     });
   }

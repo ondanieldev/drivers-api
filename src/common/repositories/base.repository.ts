@@ -17,7 +17,8 @@ export class BaseRepository<
 export type FindDataBo<TEntity> = Partial<TEntity> | Partial<TEntity>[];
 
 export type FindOptionsBo<TEntity> = {
-  insensitiveKeys?: (keyof TEntity)[];
+  insensitiveSearchKeys?: (keyof TEntity)[];
+  includeSearchKeys?: (keyof TEntity)[];
 };
 
 export type FindBo<TEntity, TRelations = []> = {

@@ -84,6 +84,5 @@
   - [ ] Create `docker-compose.yml`
   - [ ] Update `README.md` scripts
 - [ ] Implement `PostgreSQL` database
-- [ ] Maybe allow string filters to use regex instead of exact matching
 - [ ] Save mocked data on separate files to make tests better readable
 - [ ] Review code and add comments that could be useful

@@ -28,6 +28,8 @@ export class BaseLocalRepositoryUtil<TEntity, TRelations> {
     const comparisons = [];
 
     for (const [key, value] of Object.entries(findData)) {
+      const isKeyMatch = this.isKeyMatch(entity, key as keyof TEntity, value);
+
       const isInsentiveKeyMatch = this.isInsentiveKeyMatch(
         entity,
         key as keyof TEntity,
@@ -35,9 +37,14 @@ export class BaseLocalRepositoryUtil<TEntity, TRelations> {
         findOptions,
       );
 
-      const isKeyMatch = this.isKeyMatch(entity, key as keyof TEntity, value);
+      const isIncludeKeyMatch = this.isIncludeKeyMatch(
+        entity,
+        key as keyof TEntity,
+        value,
+        findOptions,
+      );
 
-      comparisons.push(isInsentiveKeyMatch || isKeyMatch);
+      comparisons.push(isKeyMatch || isInsentiveKeyMatch || isIncludeKeyMatch);
     }
 
     return comparisons.reduce((acc, curr) => acc && curr, true);
@@ -58,12 +65,30 @@ export class BaseLocalRepositoryUtil<TEntity, TRelations> {
     findOptions?: FindOptionsBo<TEntity>,
   ) {
     if (
-      findOptions?.insensitiveKeys?.includes(key) &&
+      findOptions?.insensitiveSearchKeys?.includes(key) &&
       typeof entity[key] === 'string' &&
       typeof value === 'string'
     ) {
       const entityValue = entity[key] as string;
       return entityValue.toLowerCase() === value.toLowerCase();
     }
+    return false;
+  }
+
+  private isIncludeKeyMatch<TEntity>(
+    entity: TEntity,
+    key: keyof TEntity,
+    value: TEntity[keyof TEntity],
+    findOptions?: FindOptionsBo<TEntity>,
+  ) {
+    if (
+      findOptions?.includeSearchKeys?.includes(key) &&
+      typeof entity[key] === 'string' &&
+      typeof value === 'string'
+    ) {
+      const entityValue = entity[key] as string;
+      return entityValue.toLowerCase().includes(value.toLowerCase());
+    }
+    return false;
   }
 }

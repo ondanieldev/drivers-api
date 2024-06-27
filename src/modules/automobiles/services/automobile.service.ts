@@ -34,7 +34,7 @@ export class AutomobileService {
     return this.automobileRepository.findMany({
       data,
       options: {
-        insensitiveKeys: ['brand', 'color'],
+        includeSearchKeys: ['brand', 'color'],
       },
     });
   }
