@@ -1,5 +1,6 @@
 import { DriverLocalRepository } from 'modules/drivers/repositories/driver.local.repository';
 import { DriverRepository } from 'modules/drivers/repositories/driver.repository';
+import { DriverService } from 'modules/drivers/services/driver.service';
 
 import { StartAutomobileUsageBo } from '../bos/automobile-usage.bo';
 import {
@@ -11,11 +12,14 @@ import { AutomobileUsageLocalRepository } from '../repositories/automobile-usage
 import { AutomobileUsageRepository } from '../repositories/automobile-usage.repository';
 import { AutomobileRepository } from '../repositories/automobile.repository';
 import { AutomobileUsageService } from './automobile-usage.service';
+import { AutomobileService } from './automobile.service';
 
 describe('AutomobileUsageService', () => {
   let driverRepository: DriverRepository;
   let automobileRepository: AutomobileRepository;
   let automobileUsageRepository: AutomobileUsageRepository;
+  let automobileService: AutomobileService;
+  let driverService: DriverService;
   let automobileUsageService: AutomobileUsageService;
 
   beforeEach(async () => {
@@ -25,17 +29,21 @@ describe('AutomobileUsageService', () => {
       automobileRepository,
       driverRepository,
     );
+    automobileService = new AutomobileService(automobileRepository);
+    driverService = new DriverService(driverRepository);
     automobileUsageService = new AutomobileUsageService(
+      automobileService,
+      driverService,
       automobileUsageRepository,
     );
   });
 
   it('should start an automobile usage', async () => {
     // Arrange
-    const driver = await driverRepository.create({
+    const driver = await driverService.create({
       name: 'John Doe',
     });
-    const automobile = await automobileRepository.create({
+    const automobile = await automobileService.create({
       brand: 'Chevrolet',
       color: 'black',
       licensePlate: 'ABC-1234',
@@ -59,10 +67,10 @@ describe('AutomobileUsageService', () => {
 
   it('should finish an automobile usage', async () => {
     // Arrange
-    const driver = await driverRepository.create({
+    const driver = await driverService.create({
       name: 'John Doe',
     });
-    const automobile = await automobileRepository.create({
+    const automobile = await automobileService.create({
       brand: 'Chevrolet',
       color: 'black',
       licensePlate: 'ABC-1234',
@@ -93,10 +101,10 @@ describe('AutomobileUsageService', () => {
 
   it('should NOT finish an automobile usage that is already finished', async () => {
     // Arrange
-    const driver = await driverRepository.create({
+    const driver = await driverService.create({
       name: 'John Doe',
     });
-    const automobile = await automobileRepository.create({
+    const automobile = await automobileService.create({
       brand: 'Chevrolet',
       color: 'black',
       licensePlate: 'ABC-1234',
@@ -116,18 +124,18 @@ describe('AutomobileUsageService', () => {
 
   it('should read automobile list with automobile and driver data', async () => {
     // Arrange
-    const driver1 = await driverRepository.create({
+    const driver1 = await driverService.create({
       name: 'John Doe',
     });
-    const automobile1 = await automobileRepository.create({
+    const automobile1 = await automobileService.create({
       brand: 'Chevrolet',
       color: 'black',
       licensePlate: 'ABC-1234',
     });
-    const driver2 = await driverRepository.create({
+    const driver2 = await driverService.create({
       name: 'John Doe',
     });
-    const automobile2 = await automobileRepository.create({
+    const automobile2 = await automobileService.create({
       brand: 'Chevrolet',
       color: 'black',
       licensePlate: 'ABC-1234',
