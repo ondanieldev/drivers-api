@@ -12,7 +12,7 @@ export class AutomobileUnfinishedUsageConflictError extends AppError {
     super(
       AutomobileUnfinishedUsageConflictError.name,
       StatusCode.CONFLICT,
-      `The automobile "${automobileId}" is already being used. Its usage's id is ${automobileUsageId}. Please finish it before starting a new one.`,
+      `The automobile "${automobileId}" is already being used. Its usage's id is "${automobileUsageId}". Please finish it before starting a new one.`,
     );
   }
 }
@@ -28,7 +28,7 @@ export class DriverUnfinishedUsageConflictError extends AppError {
     super(
       DriverUnfinishedUsageConflictError.name,
       StatusCode.CONFLICT,
-      `The driver "${driverId}" is already using an automobile. Its usage's id is ${automobileUsageId}. Please finish it before starting a new one.`,
+      `The driver "${driverId}" is already using an automobile. Its usage's id is "${automobileUsageId}". Please finish it before starting a new one.`,
     );
   }
 }

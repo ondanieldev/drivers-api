@@ -22,7 +22,7 @@
  *
  * /automobiles/usages:
  *   get:
- *     summary: Read automobile list
+ *     summary: Read automobile usage list
  *     tags: [Automobiles Usages]
  *     responses:
  *       200:
