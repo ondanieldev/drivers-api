@@ -65,6 +65,6 @@ export class AutomobileModule implements Module {
     const automobileRestRouter = container.resolve<AutomobileRestRouter>(
       'AutomobileRestRouter',
     );
-    app.use(automobileRestRouter.getRouter());
+    app.use('/automobiles', automobileRestRouter.getRouter());
   }
 }

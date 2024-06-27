@@ -22,20 +22,20 @@ export class AutomobileRestRouter implements RestRouter {
     const router = Router();
 
     router.post(
-      '/automobile',
+      '/',
       validatorMiddleware('body', CreateAutomobileDto),
       this.automobileRestController.create.bind(this.automobileRestController),
     );
 
     router.get(
-      '/automobile/:id',
+      '/:id',
       this.automobileRestController.readById.bind(
         this.automobileRestController,
       ),
     );
 
     router.get(
-      '/automobile',
+      '/',
       validatorMiddleware('query', ReadAutomobileListDto),
       this.automobileRestController.readList.bind(
         this.automobileRestController,
@@ -43,13 +43,13 @@ export class AutomobileRestRouter implements RestRouter {
     );
 
     router.put(
-      '/automobile/:id',
+      '/:id',
       validatorMiddleware('body', UpdateAutomobileDto),
       this.automobileRestController.update.bind(this.automobileRestController),
     );
 
     router.delete(
-      '/automobile/:id',
+      '/:id',
       this.automobileRestController.delete.bind(this.automobileRestController),
     );
 

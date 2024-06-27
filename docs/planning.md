@@ -84,7 +84,6 @@
   - [ ] Create `docker-compose.yml`
   - [ ] Update `README.md` scripts
 - [ ] Implement `PostgreSQL` database
-- [ ] Rename routes to plural names and setup route base name on module
 - [ ] Maybe allow string filters to use regex instead of exact matching
 - [ ] Save mocked data on separate files to make tests better readable
 - [ ] Review code and add comments that could be useful
