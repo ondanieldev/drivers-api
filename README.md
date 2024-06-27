@@ -43,7 +43,7 @@ It contains two main modules to manage automobiles, drivers and a usage relation
 - Docker:
   - This step is optional, you must follow it only if you want to run the API with docker;
   - Create a `docker-compose.override.yml` if you want to change something of `docker-compose.yml`;
-  - Run `yarn docker:build` to build the API into a new docker image;
+  - Run `yarn docker:build` to build the API into a new docker image.
 
 ## How to run
 
@@ -71,7 +71,7 @@ It contains two main modules to manage automobiles, drivers and a usage relation
 
 ### Sending HTTP requests via Insomnia
 
-- There is an [Insomnia repository](https://github.com/ondanieldev/drivers-api-insomnia) that stores all Insomnia files related to this API. You can follow [Insomnia Git Sync](https://docs.insomnia.rest/insomnia/git-sync) instrunctions to use it.
+- There is an [Insomnia repository](https://github.com/ondanieldev/drivers-api-insomnia) that stores all Insomnia files related to this API. You can follow [Insomnia Git Sync](https://docs.insomnia.rest/insomnia/git-sync) instructions to use it.
 
 ## How to lint
 
@@ -95,7 +95,7 @@ It contains two main modules to manage automobiles, drivers and a usage relation
     - You can generate a new ssh key-pair on linux by running `ssh-keygen`;
     - Once generated, copy the public key to your server's `authorized_keys` file, which is usually located at `.ssh/authorized_keys`;
     - The private key, on the other hand, is the value of the secret.
-- Every push to the `develop` branch will trigger a GitHub CI workflow. This workflow is available under the `.github/workflows` folder. Once ran, the code will be deployed on the server.
+- Every push to the `master` branch will trigger a GitHub CI workflow. This workflow is available under the `.github/workflows` folder. Once ran, the code will be deployed on the server.
 
 ## Links
 
