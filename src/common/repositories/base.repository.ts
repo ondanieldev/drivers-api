@@ -16,6 +16,10 @@ export class BaseRepository<
 
 export type FindDataBo<TEntity> = Partial<TEntity> | Partial<TEntity>[];
 
+/**
+ * @param insensitiveSearchKeys - Keys that should be searched in a case-insensitive way.
+ * @param includeSearchKeys - Keys that should be searched by including the search term.
+ */
 export type FindOptionsBo<TEntity> = {
   insensitiveSearchKeys?: (keyof TEntity)[];
   includeSearchKeys?: (keyof TEntity)[];

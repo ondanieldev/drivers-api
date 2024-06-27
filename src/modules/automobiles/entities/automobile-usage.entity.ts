@@ -16,6 +16,7 @@ export class AutomobileUsageEntity extends BaseEntity {
   reason: string;
   startedAt: Date;
 
+  // Relations that may be loaded with this entity
   automobile?: AutomobileEntity;
   driver?: DriverEntity;
 }

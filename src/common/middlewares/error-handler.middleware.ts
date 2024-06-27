@@ -16,7 +16,7 @@ export function errorHandlerMiddleware(
     return handleAppError(err, response);
   }
 
-  // Validation errors
+  // Validation errors (thrown by class-validator when using DTOs)
   if (err instanceof Array && err[0] instanceof ValidationError) {
     return handleValidationError(err as ValidationError[], response);
   }
@@ -37,6 +37,7 @@ function handleValidationError(
   err: ValidationError[],
   response: Response,
 ): Response {
+  // Concatenate all validation errors into a single message
   const message = err
     .map((error) => Object.values(error.constraints || {}).join(', '))
     .join('; ');
