@@ -1,0 +1,37 @@
+# Setup requirements
+
+- [x] API repository
+- [x] `TypeScript`
+  - [x] Install and config `typescript`
+  - [x] Install and config `tsc`
+  - [x] Install and config `tsx`
+- [x] `LICENSE`
+- [x] entrypoint
+- [x] `.env`
+- [x] `.gitignore`
+- [x] `package.json` scripts
+- [x] `common` and `modules` folders
+- [x] code linters
+  - [x] `eslint`
+  - [x] `prettier`
+  - [x] `editorconfig`
+- [x] `jest` for unit testing
+- [x] `express`
+  - [x] `cors`
+  - [x] `helmet`
+  - [x] Create base middlewares
+    - [x] Endpoint logger
+    - [x] Error handler
+- [x] `class-validator` and `class-transformer` to enhance DTOs
+- [x] tsyringe for dependency injection
+- [x] base entities and repositories
+- [x] modules pattern
+- [x] `README.md`
+  - [x] Title
+  - [x] Description
+  - [x] How to setup
+  - [x] How to run
+  - [x] How to test
+  - [x] How to lint
+  - [x] Useful links
+- [x] Insomnia repository

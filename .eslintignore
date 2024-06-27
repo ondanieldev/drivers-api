@@ -1,0 +1,6 @@
+.github
+.vscode
+.yarn
+dist
+node_modules
+test/coverage
