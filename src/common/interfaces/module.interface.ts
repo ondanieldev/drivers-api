@@ -14,5 +14,5 @@ export interface Module {
    * Attach routes to the app.
    * @param app Express app.
    */
-  useRestRouter: (app: Express) => void;
+  registerRestRouter: (app: Express) => void;
 }

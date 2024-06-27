@@ -57,7 +57,7 @@ export class AutomobileModule implements Module {
     );
   }
 
-  public useRestRouter(app: Express): void {
+  public registerRestRouter(app: Express): void {
     const automobileUsageRestRouter =
       container.resolve<AutomobileUsageRestRouter>('AutomobileUsageRestRouter');
     app.use('/automobiles/usages', automobileUsageRestRouter.getRouter());

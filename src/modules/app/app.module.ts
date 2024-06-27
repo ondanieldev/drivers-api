@@ -16,7 +16,7 @@ export class AppModule implements Module {
     this.modules.forEach((module) => module.injectDependencies());
   }
 
-  useRestRouter(app: Express): void {
-    this.modules.forEach((module) => module.useRestRouter(app));
+  registerRestRouter(app: Express): void {
+    this.modules.forEach((module) => module.registerRestRouter(app));
   }
 }
