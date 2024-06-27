@@ -5,6 +5,8 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc && tsc-alias",
+    "docker:build": "docker image build . -f Dockerfile --tag ondanieldev/drivers-api",
+    "docker:up": "docker-compose up -d",
     "fix": "yarn fix:eslint && yarn fix:prettier",
     "fix:eslint": "eslint --fix \"{src,test}/**/*.{js,ts}\"",
     "fix:prettier": "prettier --write \"{src,test}/**/*.{js,ts}\"",

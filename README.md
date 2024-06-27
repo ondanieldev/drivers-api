@@ -40,10 +40,20 @@ It contains two main modules to manage automobiles, drivers and a usage relation
 - Environment variables:
   - Copy `.env.example` to a new `.env` file;
   - Fill/replace `.env` with the required credentials.
+- Docker:
+  - This step is optional, you must follow it only if you want to run the API with docker;
+  - Create a `docker-compose.override.yml` if you want to change something of `docker-compose.yml`;
+  - Run `yarn docker:build` to build the API into a new docker image;
 
 ## How to run
 
+### Running without docker
+
 - Run `yarn run:dev`.
+
+### Running with docker
+
+- Run `yarn docker:up`.
 
 ## How to test
 
