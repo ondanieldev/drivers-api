@@ -53,6 +53,16 @@ It contains two main modules to manage automobiles, drivers and a usage relation
 - Run `yarn test:unit:cov` to execute tests and generate coverage reports:
   - Coverage reports will be available under `test/coverage` folder.
 
+### Sending HTTP requests via Swagger
+
+- If you are running locally, you can access Swagger by clicking [here](http://localhost:3000/api):
+  - Please note that the link above uses the default port `3000`. So if you have changed it, then you must change on the link as well.
+- If you want to try it out without running locally, you can access the deployed version by clicking [here](https://drivers-api.ondaniel.com.br/api).
+
+### Sending HTTP requests via Insomnia
+
+- There is an [Insomnia repository](https://docs.insomnia.rest/insomnia/git-sync) that stores all Insomnia files related to this API. You can follow [Insomnia Git Sync](https://docs.insomnia.rest/insomnia/git-sync) instrunctions to use it.
+
 ## How to lint
 
 - Run `yarn fix` to fix linting issues;
