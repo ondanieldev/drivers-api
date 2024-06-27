@@ -1,5 +1,5 @@
-import { CreateDriverBo, UpdateDriverBo } from '../bos/driver.bo';
 import { DriverNotFoundError } from '../errors/driver.error';
+import { createDriverSamples } from '../mocks/driver.mock';
 import { DriverLocalRepository } from '../repositories/driver.local.repository';
 import { DriverRepository } from '../repositories/driver.repository';
 import { DriverService } from './driver.service';
@@ -14,51 +14,34 @@ describe('DriverService', () => {
   });
 
   it('should create a driver', async () => {
-    // Arrange
-    const data: CreateDriverBo = {
-      name: 'John Doe',
-    };
-
     // Act
-    const driver = await driverService.create(data);
+    const driver = await driverService.create(createDriverSamples[0]);
 
     // Assert
     expect(driver).toBeDefined();
-    expect(driver.name).toBe(data.name);
+    expect(driver.name).toBe(createDriverSamples[0].name);
   });
 
   it('should update a driver', async () => {
     // Arrange
-    const createData: CreateDriverBo = {
-      name: 'John Doe',
-    };
-    const driver = await driverService.create(createData);
-
-    const updateData: UpdateDriverBo = {
-      name: 'Jane Doe',
-    };
+    const driver = await driverService.create(createDriverSamples[0]);
 
     // Act
     const updatedDriver = await driverService.update({
-      data: updateData,
+      data: createDriverSamples[1],
       id: driver.id,
     });
 
     // Assert
     expect(updatedDriver).toBeDefined();
-    expect(updatedDriver.name).toBe(updateData.name);
+    expect(updatedDriver.name).toBe(createDriverSamples[1].name);
   });
 
   it('should NOT update a driver that does not exist', async () => {
-    // Arrange
-    const data: UpdateDriverBo = {
-      name: 'John Doe',
-    };
-
     // Assert
     await expect(
       driverService.update({
-        data: data,
+        data: createDriverSamples[0],
         id: 'non-existing-id',
       }),
     ).rejects.toThrow(DriverNotFoundError);
@@ -66,16 +49,7 @@ describe('DriverService', () => {
 
   it('should read driver list', async () => {
     // Arrange
-    const createDataList: CreateDriverBo[] = [
-      {
-        name: 'John Doe',
-      },
-      {
-        name: 'Jane Doe',
-      },
-    ];
-
-    for (const createData of createDataList) {
+    for (const createData of createDriverSamples.slice(0, 2)) {
       await driverService.create(createData);
     }
 
@@ -89,37 +63,24 @@ describe('DriverService', () => {
 
   it('should read driver list filtering by name', async () => {
     // Arrange
-    const createDataList: CreateDriverBo[] = [
-      {
-        name: 'John Doe',
-      },
-      {
-        name: 'Jane Doe',
-      },
-    ];
-
-    for (const createData of createDataList) {
+    for (const createData of createDriverSamples.slice(0, 2)) {
       await driverService.create(createData);
     }
 
     // Act
     const driverList = await driverService.readList({
-      name: 'John Doe',
+      name: createDriverSamples[1].name.toUpperCase().substring(1, 4),
     });
 
     // Assert
     expect(driverList).toBeDefined();
     expect(driverList.length).toBe(1);
-    expect(driverList[0].name).toBe('John Doe');
+    expect(driverList[0].name).toBe(createDriverSamples[1].name);
   });
 
   it('should read driver by id', async () => {
     // Arrange
-    const createData: CreateDriverBo = {
-      name: 'John Doe',
-    };
-
-    const createdDriver = await driverService.create(createData);
+    const createdDriver = await driverService.create(createDriverSamples[0]);
 
     // Act
     const readDriver = await driverService.readById(createdDriver.id);
@@ -131,11 +92,7 @@ describe('DriverService', () => {
 
   it('should delete a driver', async () => {
     // Arrange
-    const createData: CreateDriverBo = {
-      name: 'John Doe',
-    };
-
-    const driver = await driverService.create(createData);
+    const driver = await driverService.create(createDriverSamples[0]);
 
     // Act
     await driverService.delete(driver.id);

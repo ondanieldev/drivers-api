@@ -1,5 +1,5 @@
-import { CreateAutomobileBo, UpdateAutomobileBo } from '../bos/automobile.bo';
 import { AutomobileNotFoundError } from '../errors/automobile.error';
+import { createAutomobileSamples } from '../mocks/automobile.mock';
 import { AutomobileLocalRepository } from '../repositories/automobile-local.repository';
 import { AutomobileRepository } from '../repositories/automobile.repository';
 import { AutomobileService } from './automobile.service';
@@ -14,63 +14,46 @@ describe('AutomobileService', () => {
   });
 
   it('should create an automobile', async () => {
-    // Arrange
-    const data: CreateAutomobileBo = {
-      brand: 'Toyota',
-      color: 'black',
-      licensePlate: 'ABC-1234',
-    };
-
     // Act
-    const automobile = await automobileService.create(data);
+    const automobile = await automobileService.create(
+      createAutomobileSamples[0],
+    );
 
     // Assert
     expect(automobile).toBeDefined();
-    expect(automobile.brand).toBe(data.brand);
-    expect(automobile.color).toBe(data.color);
-    expect(automobile.licensePlate).toBe(data.licensePlate);
+    expect(automobile.brand).toBe(createAutomobileSamples[0].brand);
+    expect(automobile.color).toBe(createAutomobileSamples[0].color);
+    expect(automobile.licensePlate).toBe(
+      createAutomobileSamples[0].licensePlate,
+    );
   });
 
   it('should update an automobile', async () => {
     // Arrange
-    const createData: CreateAutomobileBo = {
-      brand: 'Toyota',
-      color: 'black',
-      licensePlate: 'ABC-1234',
-    };
-    const automobile = await automobileService.create(createData);
-
-    const updateData: UpdateAutomobileBo = {
-      brand: 'Honda',
-      color: 'white',
-      licensePlate: 'XYZ-9876',
-    };
+    const automobile = await automobileService.create(
+      createAutomobileSamples[0],
+    );
 
     // Act
     const updatedAutomobile = await automobileService.update({
-      data: updateData,
+      data: createAutomobileSamples[1],
       id: automobile.id,
     });
 
     // Assert
     expect(updatedAutomobile).toBeDefined();
-    expect(updatedAutomobile.brand).toBe(updateData.brand);
-    expect(updatedAutomobile.color).toBe(updateData.color);
-    expect(updatedAutomobile.licensePlate).toBe(updateData.licensePlate);
+    expect(updatedAutomobile.brand).toBe(createAutomobileSamples[1].brand);
+    expect(updatedAutomobile.color).toBe(createAutomobileSamples[1].color);
+    expect(updatedAutomobile.licensePlate).toBe(
+      createAutomobileSamples[1].licensePlate,
+    );
   });
 
   it('should NOT update an automobile that does not exist', async () => {
-    // Arrange
-    const data: UpdateAutomobileBo = {
-      brand: 'Honda',
-      color: 'white',
-      licensePlate: 'XYZ-9876',
-    };
-
     // Assert
     await expect(
       automobileService.update({
-        data: data,
+        data: createAutomobileSamples[0],
         id: 'non-existing-id',
       }),
     ).rejects.toThrow(AutomobileNotFoundError);
@@ -78,20 +61,7 @@ describe('AutomobileService', () => {
 
   it('should read automobile list', async () => {
     // Arrange
-    const createDataList: CreateAutomobileBo[] = [
-      {
-        brand: 'Toyota',
-        color: 'black',
-        licensePlate: 'ABC-1234',
-      },
-      {
-        brand: 'Honda',
-        color: 'white',
-        licensePlate: 'XYZ-9876',
-      },
-    ];
-
-    for (const createData of createDataList) {
+    for (const createData of createAutomobileSamples.slice(0, 2)) {
       await automobileService.create(createData);
     }
 
@@ -105,73 +75,43 @@ describe('AutomobileService', () => {
 
   it('should read automobile list filtering by brand', async () => {
     // Arrange
-    const createDataList: CreateAutomobileBo[] = [
-      {
-        brand: 'Toyota',
-        color: 'black',
-        licensePlate: 'ABC-1234',
-      },
-      {
-        brand: 'Honda',
-        color: 'white',
-        licensePlate: 'XYZ-9876',
-      },
-    ];
-
-    for (const createData of createDataList) {
+    for (const createData of createAutomobileSamples.slice(0, 2)) {
       await automobileService.create(createData);
     }
 
     // Act
     const automobileList = await automobileService.readList({
-      brand: 'Toyota',
+      brand: createAutomobileSamples[1].brand.toUpperCase().substring(1, 4),
     });
 
     // Assert
     expect(automobileList).toBeDefined();
     expect(automobileList.length).toBe(1);
-    expect(automobileList[0].brand).toBe('Toyota');
+    expect(automobileList[0].brand).toBe(createAutomobileSamples[1].brand);
   });
 
   it('should read automobile list filtering by color', async () => {
     // Arrange
-    const createDataList: CreateAutomobileBo[] = [
-      {
-        brand: 'Toyota',
-        color: 'black',
-        licensePlate: 'ABC-1234',
-      },
-      {
-        brand: 'Honda',
-        color: 'white',
-        licensePlate: 'XYZ-9876',
-      },
-    ];
-
-    for (const createData of createDataList) {
+    for (const createData of createAutomobileSamples) {
       await automobileService.create(createData);
     }
 
     // Act
     const automobileList = await automobileService.readList({
-      color: 'white',
+      color: createAutomobileSamples[1].color.toUpperCase().substring(1, 4),
     });
 
     // Assert
     expect(automobileList).toBeDefined();
     expect(automobileList.length).toBe(1);
-    expect(automobileList[0].color).toBe('white');
+    expect(automobileList[0].color).toBe(createAutomobileSamples[1].color);
   });
 
   it('should read automobile by id', async () => {
     // Arrange
-    const createData: CreateAutomobileBo = {
-      brand: 'Toyota',
-      color: 'black',
-      licensePlate: 'ABC-1234',
-    };
-
-    const createdAutomobile = await automobileService.create(createData);
+    const createdAutomobile = await automobileService.create(
+      createAutomobileSamples[0],
+    );
 
     // Act
     const readAutomobile = await automobileService.readById(
@@ -185,13 +125,9 @@ describe('AutomobileService', () => {
 
   it('should delete an automobile', async () => {
     // Arrange
-    const createData: CreateAutomobileBo = {
-      brand: 'Toyota',
-      color: 'black',
-      licensePlate: 'ABC-1234',
-    };
-
-    const automobile = await automobileService.create(createData);
+    const automobile = await automobileService.create(
+      createAutomobileSamples[0],
+    );
 
     // Act
     await automobileService.delete(automobile.id);

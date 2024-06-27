@@ -1,3 +1,4 @@
+import { createDriverSamples } from 'modules/drivers/mocks/driver.mock';
 import { DriverLocalRepository } from 'modules/drivers/repositories/driver.local.repository';
 import { DriverRepository } from 'modules/drivers/repositories/driver.repository';
 import { DriverService } from 'modules/drivers/services/driver.service';
@@ -9,6 +10,7 @@ import {
   AutomobileUsageNotFoundError,
   DriverUnfinishedUsageConflictError,
 } from '../errors/automobile-usage.error';
+import { createAutomobileSamples } from '../mocks/automobile.mock';
 import { AutomobileLocalRepository } from '../repositories/automobile-local.repository';
 import { AutomobileUsageLocalRepository } from '../repositories/automobile-usage.local.repository';
 import { AutomobileUsageRepository } from '../repositories/automobile-usage.repository';
@@ -42,14 +44,10 @@ describe('AutomobileUsageService', () => {
 
   it('should start an automobile usage', async () => {
     // Arrange
-    const driver = await driverService.create({
-      name: 'John Doe',
-    });
-    const automobile = await automobileService.create({
-      brand: 'Chevrolet',
-      color: 'black',
-      licensePlate: 'ABC-1234',
-    });
+    const driver = await driverService.create(createDriverSamples[0]);
+    const automobile = await automobileService.create(
+      createAutomobileSamples[0],
+    );
     const data: StartAutomobileUsageBo = {
       automobileId: automobile.id,
       driverId: driver.id,
@@ -69,21 +67,15 @@ describe('AutomobileUsageService', () => {
 
   it('should NOT start an automobile usage for a driver that is already using an automobile', async () => {
     // Arrange
-    const driver = await driverService.create({
-      name: 'John Doe',
-    });
-    const automobile = await automobileService.create({
-      brand: 'Chevrolet',
-      color: 'black',
-      licensePlate: 'ABC-1234',
-    });
-    const automobile2 = await automobileService.create({
-      brand: 'Honda',
-      color: 'white',
-      licensePlate: 'XYZ-6789',
-    });
+    const driver = await driverService.create(createDriverSamples[0]);
+    const automobile1 = await automobileService.create(
+      createAutomobileSamples[0],
+    );
+    const automobile2 = await automobileService.create(
+      createAutomobileSamples[1],
+    );
     await automobileUsageService.start({
-      automobileId: automobile.id,
+      automobileId: automobile1.id,
       driverId: driver.id,
       reason: 'Travel to the beach',
     });
@@ -100,17 +92,11 @@ describe('AutomobileUsageService', () => {
 
   it('should NOT start an automobile usage for an automobile that is already being used', async () => {
     // Arrange
-    const driver = await driverService.create({
-      name: 'John Doe',
-    });
-    const driver2 = await driverService.create({
-      name: 'John Doe 2',
-    });
-    const automobile = await automobileService.create({
-      brand: 'Chevrolet',
-      color: 'black',
-      licensePlate: 'ABC-1234',
-    });
+    const driver = await driverService.create(createDriverSamples[0]);
+    const driver2 = await driverService.create(createDriverSamples[1]);
+    const automobile = await automobileService.create(
+      createAutomobileSamples[0],
+    );
     await automobileUsageService.start({
       automobileId: automobile.id,
       driverId: driver.id,
@@ -129,14 +115,10 @@ describe('AutomobileUsageService', () => {
 
   it('should finish an automobile usage', async () => {
     // Arrange
-    const driver = await driverService.create({
-      name: 'John Doe',
-    });
-    const automobile = await automobileService.create({
-      brand: 'Chevrolet',
-      color: 'black',
-      licensePlate: 'ABC-1234',
-    });
+    const driver = await driverService.create(createDriverSamples[0]);
+    const automobile = await automobileService.create(
+      createAutomobileSamples[0],
+    );
     const automobileUsage = await automobileUsageService.start({
       automobileId: automobile.id,
       driverId: driver.id,
@@ -163,14 +145,10 @@ describe('AutomobileUsageService', () => {
 
   it('should NOT finish an automobile usage that is already finished', async () => {
     // Arrange
-    const driver = await driverService.create({
-      name: 'John Doe',
-    });
-    const automobile = await automobileService.create({
-      brand: 'Chevrolet',
-      color: 'black',
-      licensePlate: 'ABC-1234',
-    });
+    const driver = await driverService.create(createDriverSamples[0]);
+    const automobile = await automobileService.create(
+      createAutomobileSamples[0],
+    );
     const automobileUsage = await automobileUsageService.start({
       automobileId: automobile.id,
       driverId: driver.id,
@@ -186,22 +164,14 @@ describe('AutomobileUsageService', () => {
 
   it('should read automobile list with automobile and driver data', async () => {
     // Arrange
-    const driver1 = await driverService.create({
-      name: 'John Doe',
-    });
-    const automobile1 = await automobileService.create({
-      brand: 'Chevrolet',
-      color: 'black',
-      licensePlate: 'ABC-1234',
-    });
-    const driver2 = await driverService.create({
-      name: 'John Doe',
-    });
-    const automobile2 = await automobileService.create({
-      brand: 'Chevrolet',
-      color: 'black',
-      licensePlate: 'ABC-1234',
-    });
+    const driver1 = await driverService.create(createDriverSamples[0]);
+    const automobile1 = await automobileService.create(
+      createAutomobileSamples[0],
+    );
+    const driver2 = await driverService.create(createDriverSamples[1]);
+    const automobile2 = await automobileService.create(
+      createAutomobileSamples[1],
+    );
     await automobileUsageService.start({
       automobileId: automobile1.id,
       driverId: driver1.id,
