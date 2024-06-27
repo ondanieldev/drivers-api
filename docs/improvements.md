@@ -5,4 +5,3 @@
   - [ ] Create `docker-compose.yml`
   - [ ] Update `README.md` scripts
 - [ ] Implement `PostgreSQL` database
-- [ ] Setup deploy workflow

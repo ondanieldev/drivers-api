@@ -13,23 +13,37 @@ import { logger } from 'common/utils/logger';
 
 import { AppModule } from 'modules/app/app.module';
 
+import { swaggerRouter } from 'providers/swagger/swagger.index';
+
 function bootstrap() {
   const { port } = restApiConfig();
 
   const restApi = express();
 
-  restApi.use(cors()); // Enable CORS
-  restApi.use(express.json()); // Enable JSON body parsing
-  restApi.use(helmet()); // Enable security headers
+  // Enable CORS
+  restApi.use(cors());
 
-  restApi.use(pathLoggerMiddleware); // Log all incoming requests
+  // Enable JSON body parsing
+  restApi.use(express.json());
 
+  // Enable security headers
+  restApi.use(helmet());
+
+  // Log all incoming requests
+  restApi.use(pathLoggerMiddleware);
+
+  // Setup swagger
+  restApi.use(swaggerRouter);
+
+  // Inject dependencies and register REST routers
   const appModule = new AppModule();
   appModule.injectDependencies();
   appModule.registerRestRouter(restApi);
 
-  restApi.use(errorHandlerMiddleware); // Will catch any errors and must be the last middleware added
+  // Will catch any errors and must be the last middleware added
+  restApi.use(errorHandlerMiddleware);
 
+  // Start the server
   restApi.listen(port, () => {
     logger.info(`REST API is running at http://localhost:${port}`);
   });
