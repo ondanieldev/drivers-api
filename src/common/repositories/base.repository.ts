@@ -23,5 +23,5 @@ export type FindOptionsBo<TEntity> = {
 export type FindBo<TEntity, TRelations = []> = {
   data: FindDataBo<TEntity>;
   options?: FindOptionsBo<TEntity>;
-  relations?: TRelations[];
+  relations?: TRelations;
 };

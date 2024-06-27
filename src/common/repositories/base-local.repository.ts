@@ -13,7 +13,7 @@ export class BaseLocalRepository<
   TRelations extends string[] = [],
 > implements BaseRepository<TEntity, TCreate, TRelations>
 {
-  private baseLocalRepositoryUtil = new BaseLocalRepositoryUtil<
+  protected baseLocalRepositoryUtil = new BaseLocalRepositoryUtil<
     TEntity,
     TRelations
   >();
