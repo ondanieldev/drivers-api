@@ -50,12 +50,16 @@
   - [x] Read by id
   - [x] Read list
     - [x] Allow filtering by `name`
-- [ ] Develop relationship between `automobile` and `driver`
-  - [ ] Start
-    - [ ] A `driver` can use only one `automibile` at the same time  
-  - [ ] Finish
-  - [ ] Read list
-    - [ ] Data that must be shown: full `register` object, `driver.name`, full `automobile` object
+- [x] Develop `automobile-usage`
+  - [x] Start
+    - [x] An `automobile` can be only used by one `driver` at the same time
+    - [x] A `driver` can use only one `automobile` at the same time  
+    - [x] An `automobile-usage` cannot be started for an `automobile` that does not exist  
+    - [x] An `automobile-usage` cannot be started for a `driver` that does not exist  
+  - [x] Finish
+    - [x] Cannot finish an `usage` that is already finished
+  - [x] Read list
+    - [x] Data that must be shown: full `register` object, `driver.name`, full `automobile` object
   
 ## Docs
 
@@ -82,3 +86,6 @@
 - [ ] Implement `PostgreSQL` database
 - [ ] Rename routes to plural names and setup route base name on module
 - [ ] Trim string on DTOs
+- [ ] Maybe allow string filters to use regex instead of exact matching
+- [ ] Save mocked data on separate files to make tests better readable
+- [ ] Review code and add comments that could be useful

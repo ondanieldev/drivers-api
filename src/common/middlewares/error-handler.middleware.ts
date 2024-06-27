@@ -11,7 +11,6 @@ export function errorHandlerMiddleware(
   response: Response,
   _: NextFunction,
 ): Response {
-  logger.error(err);
   // Known errors
   if (err instanceof AppError) {
     return handleAppError(err, response);

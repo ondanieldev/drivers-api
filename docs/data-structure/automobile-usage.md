@@ -4,7 +4,7 @@
 id: string
 automobileId: string
 driverId: string
-finishedAt: Date
+finishedAt: Date | null
 reason: string
 startedAt: Date
 ```
