@@ -60,7 +60,7 @@ export class BaseLocalRepository<
 
     if (!currentEntity) {
       throw new AppError(
-        'Save entity error',
+        'EntityNotFoundError',
         StatusCode.NOT_FOUND,
         'Cannot find entity to be saved',
       );
