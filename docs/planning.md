@@ -84,5 +84,4 @@
   - [ ] Create `docker-compose.yml`
   - [ ] Update `README.md` scripts
 - [ ] Implement `PostgreSQL` database
-- [ ] Save mocked data on separate files to make tests better readable
 - [ ] Review code and add comments that could be useful
