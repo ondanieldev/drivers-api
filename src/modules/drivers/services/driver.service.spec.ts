@@ -1,8 +1,5 @@
 import { DriverNotFoundError } from '../errors/driver.error';
-import {
-  createDriverSample01,
-  createDriverSample02,
-} from '../mocks/driver.mock';
+import { createDriverSamples } from '../mocks/driver.mock';
 import { DriverLocalRepository } from '../repositories/driver.local.repository';
 import { DriverRepository } from '../repositories/driver.repository';
 import { DriverService } from './driver.service';
@@ -18,33 +15,33 @@ describe('DriverService', () => {
 
   it('should create a driver', async () => {
     // Act
-    const driver = await driverService.create(createDriverSample01);
+    const driver = await driverService.create(createDriverSamples[0]);
 
     // Assert
     expect(driver).toBeDefined();
-    expect(driver.name).toBe(createDriverSample01.name);
+    expect(driver.name).toBe(createDriverSamples[0].name);
   });
 
   it('should update a driver', async () => {
     // Arrange
-    const driver = await driverService.create(createDriverSample01);
+    const driver = await driverService.create(createDriverSamples[0]);
 
     // Act
     const updatedDriver = await driverService.update({
-      data: createDriverSample02,
+      data: createDriverSamples[1],
       id: driver.id,
     });
 
     // Assert
     expect(updatedDriver).toBeDefined();
-    expect(updatedDriver.name).toBe(createDriverSample02.name);
+    expect(updatedDriver.name).toBe(createDriverSamples[1].name);
   });
 
   it('should NOT update a driver that does not exist', async () => {
     // Assert
     await expect(
       driverService.update({
-        data: createDriverSample01,
+        data: createDriverSamples[0],
         id: 'non-existing-id',
       }),
     ).rejects.toThrow(DriverNotFoundError);
@@ -52,7 +49,7 @@ describe('DriverService', () => {
 
   it('should read driver list', async () => {
     // Arrange
-    for (const createData of [createDriverSample01, createDriverSample02]) {
+    for (const createData of createDriverSamples.slice(0, 2)) {
       await driverService.create(createData);
     }
 
@@ -66,24 +63,24 @@ describe('DriverService', () => {
 
   it('should read driver list filtering by name', async () => {
     // Arrange
-    for (const createData of [createDriverSample01, createDriverSample02]) {
+    for (const createData of createDriverSamples.slice(0, 2)) {
       await driverService.create(createData);
     }
 
     // Act
     const driverList = await driverService.readList({
-      name: createDriverSample02.name.toUpperCase().substring(1, 4),
+      name: createDriverSamples[1].name.toUpperCase().substring(1, 4),
     });
 
     // Assert
     expect(driverList).toBeDefined();
     expect(driverList.length).toBe(1);
-    expect(driverList[0].name).toBe(createDriverSample02.name);
+    expect(driverList[0].name).toBe(createDriverSamples[1].name);
   });
 
   it('should read driver by id', async () => {
     // Arrange
-    const createdDriver = await driverService.create(createDriverSample01);
+    const createdDriver = await driverService.create(createDriverSamples[0]);
 
     // Act
     const readDriver = await driverService.readById(createdDriver.id);
@@ -95,7 +92,7 @@ describe('DriverService', () => {
 
   it('should delete a driver', async () => {
     // Arrange
-    const driver = await driverService.create(createDriverSample01);
+    const driver = await driverService.create(createDriverSamples[0]);
 
     // Act
     await driverService.delete(driver.id);
