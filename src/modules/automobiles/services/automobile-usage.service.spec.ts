@@ -21,7 +21,10 @@ describe('AutomobileUsageService', () => {
   beforeEach(async () => {
     driverRepository = new DriverLocalRepository();
     automobileRepository = new AutomobileLocalRepository();
-    automobileUsageRepository = new AutomobileUsageLocalRepository();
+    automobileUsageRepository = new AutomobileUsageLocalRepository(
+      automobileRepository,
+      driverRepository,
+    );
     automobileUsageService = new AutomobileUsageService(
       automobileUsageRepository,
     );
@@ -109,5 +112,43 @@ describe('AutomobileUsageService', () => {
     await expect(
       automobileUsageService.finish(automobileUsage.id),
     ).rejects.toThrow(AutomobileUsageAlreadyFinishedConflictError);
+  });
+
+  it('should read automobile list with automobile and driver data', async () => {
+    // Arrange
+    const driver1 = await driverRepository.create({
+      name: 'John Doe',
+    });
+    const automobile1 = await automobileRepository.create({
+      brand: 'Chevrolet',
+      color: 'black',
+      licensePlate: 'ABC-1234',
+    });
+    const driver2 = await driverRepository.create({
+      name: 'John Doe',
+    });
+    const automobile2 = await automobileRepository.create({
+      brand: 'Chevrolet',
+      color: 'black',
+      licensePlate: 'ABC-1234',
+    });
+    await automobileUsageService.start({
+      automobileId: automobile1.id,
+      driverId: driver1.id,
+      reason: 'Travel to the beach',
+    });
+    await automobileUsageService.start({
+      automobileId: automobile2.id,
+      driverId: driver2.id,
+      reason: 'Go to the mall',
+    });
+
+    // Act
+    const automobileUsages = await automobileUsageService.readList();
+
+    // Assert
+    expect(automobileUsages.length).toBe(2);
+    expect(automobileUsages[0].automobile).toBeDefined();
+    expect(automobileUsages[0].driver).toBeDefined();
   });
 });

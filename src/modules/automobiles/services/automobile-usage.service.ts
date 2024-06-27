@@ -63,4 +63,11 @@ export class AutomobileUsageService {
 
     return this.automobileUsageRepository.save(usage);
   }
+
+  public async readList(): Promise<AutomobileUsageEntity[]> {
+    return this.automobileUsageRepository.findMany({
+      data: {},
+      relations: ['automobile', 'driver'],
+    });
+  }
 }

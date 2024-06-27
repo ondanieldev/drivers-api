@@ -53,10 +53,11 @@
 - [x] Develop relationship between `automobile` and `driver`
   - [x] Start
     - [x] A `driver` can use only one `automibile` at the same time  
+    - [ ] An `automobile` can be only used by one `driver` at the same time
   - [x] Finish
     - [x] Cannot finish an `usage` that is already finished
-  - [ ] Read list
-    - [ ] Data that must be shown: full `register` object, `driver.name`, full `automobile` object
+  - [x] Read list
+    - [x] Data that must be shown: full `register` object, `driver.name`, full `automobile` object
   
 ## Docs
 
@@ -84,3 +85,5 @@
 - [ ] Rename routes to plural names and setup route base name on module
 - [ ] Trim string on DTOs
 - [ ] Maybe allow string filters to use regex instead of exact matching
+- [ ] Save mocked data on separate files to make tests better readable
+- [ ] Review code and add comments that could be useful
