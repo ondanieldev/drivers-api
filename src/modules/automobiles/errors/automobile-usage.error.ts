@@ -34,7 +34,7 @@ export class AutomobileUsageAlreadyFinishedConflictError extends AppError {
     super(
       AutomobileUsageNotFoundError.name,
       StatusCode.CONFLICT,
-      `The automobile usage "${id}" was already finished at ${finishedAt.toISOString}.`,
+      `The automobile usage "${id}" was already finished at ${finishedAt.toISOString()}.`,
     );
   }
 }
