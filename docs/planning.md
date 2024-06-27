@@ -52,10 +52,10 @@
     - [x] Allow filtering by `name`
 - [x] Develop `automobile-usage`
   - [x] Start
+    - [x] An `automobile` can be only used by one `driver` at the same time
     - [x] A `driver` can use only one `automobile` at the same time  
-    - [ ] An `automobile-usage` cannot be started for a `driver` that does not exist  
-    - [ ] An `automobile-usage` cannot be started for an `automobile` that does not exist  
-    - [ ] An `automobile` can be only used by one `driver` at the same time
+    - [x] An `automobile-usage` cannot be started for an `automobile` that does not exist  
+    - [x] An `automobile-usage` cannot be started for a `driver` that does not exist  
   - [x] Finish
     - [x] Cannot finish an `usage` that is already finished
   - [x] Read list

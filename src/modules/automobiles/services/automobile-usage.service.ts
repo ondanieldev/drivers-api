@@ -5,9 +5,10 @@ import { DriverService } from 'modules/drivers/services/driver.service';
 import { StartAutomobileUsageBo } from '../bos/automobile-usage.bo';
 import { AutomobileUsageEntity } from '../entities/automobile-usage.entity';
 import {
+  AutomobileUnfinishedUsageConflictError,
   AutomobileUsageAlreadyFinishedConflictError,
   AutomobileUsageNotFoundError,
-  DriverAlreadyUsingAnAutomobileConflictError,
+  DriverUnfinishedUsageConflictError,
 } from '../errors/automobile-usage.error';
 import { AutomobileUsageRepository } from '../repositories/automobile-usage.repository';
 import { AutomobileService } from './automobile.service';
@@ -28,24 +29,9 @@ export class AutomobileUsageService {
   public async start(
     data: StartAutomobileUsageBo,
   ): Promise<AutomobileUsageEntity> {
-    // Ensure both driver and automobile exists
-    await this.driverService.readById(data.driverId);
-    await this.automobileService.readById(data.automobileId);
-
-    const driverUnfinishedUsage = await this.automobileUsageRepository.find({
-      data: {
-        driverId: data.driverId,
-        finishedAt: null,
-      },
-    });
-
-    if (driverUnfinishedUsage) {
-      throw new DriverAlreadyUsingAnAutomobileConflictError({
-        automobileId: driverUnfinishedUsage.automobileId,
-        automobileUsageId: driverUnfinishedUsage.id,
-        driverId: data.driverId,
-      });
-    }
+    await this.assertAutomobileAndDriverExist(data.automobileId, data.driverId);
+    await this.assertAutomobileUnfinishedUsage(data.automobileId);
+    await this.assertDriverUnfinishedUsage(data.driverId);
 
     return this.automobileUsageRepository.create({
       ...data,
@@ -82,5 +68,49 @@ export class AutomobileUsageService {
       data: {},
       relations: ['automobile', 'driver'],
     });
+  }
+
+  private async assertAutomobileAndDriverExist(
+    automobileId: string,
+    driverId: string,
+  ): Promise<void> {
+    await this.driverService.readById(driverId);
+    await this.automobileService.readById(automobileId);
+  }
+
+  private async assertAutomobileUnfinishedUsage(
+    automobileId: string,
+  ): Promise<void> {
+    const automobileUnfinishedUsage = await this.automobileUsageRepository.find(
+      {
+        data: {
+          automobileId,
+          finishedAt: null,
+        },
+      },
+    );
+
+    if (automobileUnfinishedUsage) {
+      throw new AutomobileUnfinishedUsageConflictError({
+        automobileId,
+        automobileUsageId: automobileUnfinishedUsage.id,
+      });
+    }
+  }
+
+  private async assertDriverUnfinishedUsage(driverId: string): Promise<void> {
+    const driverUnfinishedUsage = await this.automobileUsageRepository.find({
+      data: {
+        driverId,
+        finishedAt: null,
+      },
+    });
+
+    if (driverUnfinishedUsage) {
+      throw new DriverUnfinishedUsageConflictError({
+        driverId,
+        automobileUsageId: driverUnfinishedUsage.id,
+      });
+    }
   }
 }

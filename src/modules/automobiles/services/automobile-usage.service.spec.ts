@@ -4,8 +4,10 @@ import { DriverService } from 'modules/drivers/services/driver.service';
 
 import { StartAutomobileUsageBo } from '../bos/automobile-usage.bo';
 import {
+  AutomobileUnfinishedUsageConflictError,
   AutomobileUsageAlreadyFinishedConflictError,
   AutomobileUsageNotFoundError,
+  DriverUnfinishedUsageConflictError,
 } from '../errors/automobile-usage.error';
 import { AutomobileLocalRepository } from '../repositories/automobile-local.repository';
 import { AutomobileUsageLocalRepository } from '../repositories/automobile-usage.local.repository';
@@ -63,6 +65,66 @@ describe('AutomobileUsageService', () => {
     expect(automobileUsage.driverId).toBe(data.driverId);
     expect(automobileUsage.reason).toBe(data.reason);
     expect(automobileUsage.finishedAt).toBeNull();
+  });
+
+  it('should NOT start an automobile usage for a driver that is already using an automobile', async () => {
+    // Arrange
+    const driver = await driverService.create({
+      name: 'John Doe',
+    });
+    const automobile = await automobileService.create({
+      brand: 'Chevrolet',
+      color: 'black',
+      licensePlate: 'ABC-1234',
+    });
+    const automobile2 = await automobileService.create({
+      brand: 'Honda',
+      color: 'white',
+      licensePlate: 'XYZ-6789',
+    });
+    await automobileUsageService.start({
+      automobileId: automobile.id,
+      driverId: driver.id,
+      reason: 'Travel to the beach',
+    });
+
+    // Assert
+    await expect(
+      automobileUsageService.start({
+        automobileId: automobile2.id,
+        driverId: driver.id,
+        reason: 'Go to the mall',
+      }),
+    ).rejects.toThrow(DriverUnfinishedUsageConflictError);
+  });
+
+  it('should NOT start an automobile usage for an automobile that is already being used', async () => {
+    // Arrange
+    const driver = await driverService.create({
+      name: 'John Doe',
+    });
+    const driver2 = await driverService.create({
+      name: 'John Doe 2',
+    });
+    const automobile = await automobileService.create({
+      brand: 'Chevrolet',
+      color: 'black',
+      licensePlate: 'ABC-1234',
+    });
+    await automobileUsageService.start({
+      automobileId: automobile.id,
+      driverId: driver.id,
+      reason: 'Travel to the beach',
+    });
+
+    // Assert
+    await expect(
+      automobileUsageService.start({
+        automobileId: automobile.id,
+        driverId: driver2.id,
+        reason: 'Go to the mall',
+      }),
+    ).rejects.toThrow(AutomobileUnfinishedUsageConflictError);
   });
 
   it('should finish an automobile usage', async () => {

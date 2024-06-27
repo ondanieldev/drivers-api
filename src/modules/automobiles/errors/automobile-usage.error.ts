@@ -1,20 +1,34 @@
 import { StatusCode } from 'common/enums/status-code.enum';
 import { AppError } from 'common/errors/app.error';
 
-export class DriverAlreadyUsingAnAutomobileConflictError extends AppError {
+export class AutomobileUnfinishedUsageConflictError extends AppError {
   constructor({
     automobileId,
     automobileUsageId,
-    driverId,
   }: {
     automobileId: string;
+    automobileUsageId: string;
+  }) {
+    super(
+      AutomobileUnfinishedUsageConflictError.name,
+      StatusCode.CONFLICT,
+      `The automobile "${automobileId}" is already being used. Its usage's id is ${automobileUsageId}. Please finish it before starting a new one.`,
+    );
+  }
+}
+
+export class DriverUnfinishedUsageConflictError extends AppError {
+  constructor({
+    automobileUsageId,
+    driverId,
+  }: {
     automobileUsageId: string;
     driverId: string;
   }) {
     super(
-      DriverAlreadyUsingAnAutomobileConflictError.name,
+      DriverUnfinishedUsageConflictError.name,
       StatusCode.CONFLICT,
-      `The driver "${driverId}" is already using the automobile "${automobileId}". Its usage's id is ${automobileUsageId}. Plese finish it before starting a new one.`,
+      `The driver "${driverId}" is already using an automobile. Its usage's id is ${automobileUsageId}. Please finish it before starting a new one.`,
     );
   }
 }
