@@ -59,5 +59,8 @@
     "swagger-ui-express": "^5.0.1",
     "tsyringe": "^4.8.0",
     "uuid": "^10.0.0"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
